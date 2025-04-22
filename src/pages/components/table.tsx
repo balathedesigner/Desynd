@@ -216,7 +216,7 @@ export default function TablePage() {
         <h3 className="text-lg font-semibold mb-4">Loading State</h3>
         <div className="space-y-4">
           <Button
-            variant="outlined"
+            variant="outline"
             onClick={() => {
               setIsLoading(true);
               setTimeout(() => setIsLoading(false), 2000);
@@ -246,7 +246,7 @@ export default function TablePage() {
             emptyState={
               <div className="flex flex-col items-center justify-center p-8 space-y-2">
                 <p className="text-gray-500">No users found</p>
-                <Button variant="outlined">Add User</Button>
+                <Button variant="outline">Add User</Button>
               </div>
             }
           />
@@ -542,7 +542,7 @@ export function DataTable() {
       ${includePagination ? `
       <div className="flex justify-center gap-2">
         <Button
-          variant="outlined"
+          variant="outline"
           size="sm"
           disabled={page === 1}
           onClick={() => setPage(prev => prev - 1)}
@@ -552,7 +552,7 @@ export function DataTable() {
         </Button>
         <span className="px-3 py-1 flex items-center">Page {page}</span>
         <Button
-          variant="outlined"
+          variant="outline"
           size="sm"
           disabled={paginatedData.length >= filteredData.length}
           onClick={() => setPage(prev => prev + 1)}
@@ -730,7 +730,7 @@ export function DataTable() {
                   <h3 className="text-lg font-semibold text-gray-900">Table Preview</h3>
                   <div className="flex gap-2">
                     <Button
-                      variant="outlined"
+                      variant="outline"
                       size="sm"
                       onClick={handleReset}
                       leftIcon={<RotateCcw size={16} />}
@@ -738,7 +738,7 @@ export function DataTable() {
                       Reset
                     </Button>
                     <Button
-                      variant="outlined"
+                      variant="outline"
                       size="sm"
                       onClick={handleDownloadData}
                       leftIcon={<Download size={16} />}
@@ -858,7 +858,7 @@ export function DataTable() {
                         />
                         <div className="flex justify-center gap-2 px-4">
                           <Button
-                            variant="outlined"
+                            variant="outline"
                             size="sm"
                             disabled={page === 1}
                             onClick={() => setPage(prev => prev - 1)}
@@ -868,7 +868,7 @@ export function DataTable() {
                           </Button>
                           <span className="px-3 py-1 flex items-center">Page {page}</span>
                           <Button
-                            variant="outlined"
+                            variant="outline"
                             size="sm"
                             disabled={paginatedData.length >= filteredData.length}
                             onClick={() => setPage(prev => prev + 1)}
@@ -1028,7 +1028,7 @@ export function DataTable() {
                         </div>
                         <div className="text-center mt-4">
                           <Button 
-                            variant="outlined"
+                            variant="outline"
                             size="sm"
                             onClick={() => setPreviewMode('mobile')}
                             className={cn(previewMode === 'mobile' && 'bg-blue-50')}
@@ -1044,7 +1044,7 @@ export function DataTable() {
                 {/* Code Preview */}
                 <div className="mt-6">
                   <Button
-                    variant={showCode ? 'primary' : 'outlined'}
+                    variant={showCode ? 'primary' : 'outline'}
                     size="sm"
                     onClick={() => setShowCode(!showCode)}
                     className={cn(
@@ -1127,7 +1127,7 @@ export function DataTable() {
                     size="sm"
                   />
                   <Button
-                    variant="outlined"
+                    variant="outline"
                     size="sm"
                     onClick={handleLoadingToggle}
                     leftIcon={isLoading ? <Loader2 className="animate-spin" size={16} /> : <RefreshCw size={16} />}
@@ -1479,7 +1479,7 @@ export function DataTable() {
                 
                 <div className="mt-3 pt-3 border-t flex justify-end space-x-2">
                   <Button variant="ghost" size="sm">View</Button>
-                  <Button variant="outlined" size="sm">Edit</Button>
+                  <Button variant="outline" size="sm">Edit</Button>
                 </div>
               </div>
             ))}

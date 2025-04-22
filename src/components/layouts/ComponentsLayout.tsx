@@ -48,7 +48,7 @@ export default function ComponentsLayout({ children }: ComponentsLayoutProps) {
     if (sectionsToAdd.length > 0) {
       setExpandedSections(prev => [...prev, ...sectionsToAdd]);
     }
-  }, [currentPath]);
+  }, [currentPath, expandedSections]);
 
   // Scroll to top when path changes
   useEffect(() => {

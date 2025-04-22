@@ -53,7 +53,7 @@ export default function DocumentationLayout({ children, rightNav }: Documentatio
     if (sectionsToAdd.length > 0) {
       setExpandedSections(prev => [...prev, ...sectionsToAdd]);
     }
-  }, [currentPath]);
+  }, [currentPath, expandedSections]);
 
   // Scroll to top when path changes
   useEffect(() => {
