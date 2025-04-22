@@ -107,6 +107,7 @@ export default function StepperPage() {
     const [showDescriptions, setShowDescriptions] = React.useState(false);
     const [darkMode, setDarkMode] = React.useState(false);
     const [previewMode, setPreviewMode] = React.useState<'desktop' | 'tablet' | 'mobile'>('desktop');
+    const [showCode, setShowCode] = React.useState(false);
 
     const generateCode = () => {
       const props = [];
@@ -263,9 +264,9 @@ export default function Example() {
             <Button onClick={handleBack} disabled={currentStep === 0}>Back</Button>
             <Button onClick={handleNext} disabled={currentStep === steps.length - 1}>Next</Button>
             <Button onClick={handleError} variant="destructive">Trigger Error</Button>
-            <Button onClick={handleReset} variant="outlined">Reset</Button>
-            <Button onClick={handleAddStep} variant="outlined">Add Step</Button>
-            <Button onClick={handleRemoveStep} variant="outlined" disabled={steps.length <= 2}>Remove Step</Button>
+            <Button onClick={handleReset} variant="outline">Reset</Button>
+            <Button onClick={handleAddStep} variant="outline">Add Step</Button>
+            <Button onClick={handleRemoveStep} variant="outline" disabled={steps.length <= 2}>Remove Step</Button>
           </div>
 
           <div className="space-y-4">
@@ -315,13 +316,22 @@ export default function Example() {
             </div>
             <div className="mt-4 flex justify-end">
               <Button
+                variant="outline"
                 onClick={() => navigator.clipboard.writeText(generateCode())}
-                variant="outlined"
               >
                 Copy Code
               </Button>
             </div>
           </div>
+        </div>
+
+        <div className="mt-4 flex justify-end">
+          <Button
+            variant="outline"
+            onClick={() => setShowCode(!showCode)}
+          >
+            {showCode ? 'Hide Code' : 'Show Code'}
+          </Button>
         </div>
       </div>
     );

@@ -231,7 +231,7 @@ function MyComponent() {
             />
             <div className="flex flex-wrap justify-center gap-2">
               <Button
-                variant={selectedCategory === null ? 'primary' : 'outlined'} 
+                variant={selectedCategory === null ? 'primary' : 'outline'} 
                 size="sm"
                 onClick={() => setSelectedCategory(null)}
               >
@@ -240,7 +240,7 @@ function MyComponent() {
               {iconCategories.map(category => (
                 <Button
                   key={category.name}
-                  variant={selectedCategory === category.name ? 'primary' : 'outlined'}
+                  variant={selectedCategory === category.name ? 'primary' : 'outline'}
                   size="sm"
                   onClick={() => setSelectedCategory(category.name)}
                 >

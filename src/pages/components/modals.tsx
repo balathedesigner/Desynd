@@ -94,7 +94,7 @@ export default function ModalsPage() {
       props.push(
         `footer={(
           <div className="flex justify-end gap-2 p-4">
-            <Button variant="outlined" onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
             <Button onClick={() => setIsOpen(false)}>Confirm</Button>
           </div>
         )}`
@@ -220,7 +220,7 @@ export default function Example() {
           size="sm"
           footer={
             <div className="flex justify-end gap-2 p-4">
-              <Button variant="outlined" onClick={() => setIsOpen(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
               <Button variant="destructive" onClick={() => setIsOpen(false)}>Delete</Button> 
             </div>
           }
@@ -244,7 +244,7 @@ export default function Example() {
           title="Edit Profile"
           footer={
             <div className="flex justify-end gap-2 p-4">
-              <Button variant="outlined" onClick={() => setIsOpen(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
               <Button onClick={() => setIsOpen(false)}>Save</Button>
             </div>
           }
@@ -279,7 +279,7 @@ export default function Example() {
           title="Terms of Service"
           footer={
             <div className="flex justify-end gap-2 p-4">
-              <Button variant="outlined" onClick={() => setIsOpen(false)}>Decline</Button>
+              <Button variant="outline" onClick={() => setIsOpen(false)}>Decline</Button>
               <Button onClick={() => setIsOpen(false)}>Accept</Button>
             </div>
           }
@@ -309,7 +309,7 @@ export default function Example() {
           size="full"
           footer={
             <div className="flex justify-end gap-2 p-4">
-              <Button variant="outlined" onClick={() => setIsOpen(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
               <Button onClick={() => setIsOpen(false)}>Save Settings</Button>
             </div>
           }
@@ -353,7 +353,7 @@ export default function Example() {
 
     const exampleFooter = (
       <div className="flex justify-end gap-2 p-4">
-        <Button variant="outlined" onClick={() => setIsPlaygroundModalOpen(false)}>Cancel</Button>
+        <Button variant="outline" onClick={() => setIsPlaygroundModalOpen(false)}>Cancel</Button>
         <Button onClick={() => setIsPlaygroundModalOpen(false)}>Confirm</Button>
       </div>
     );
