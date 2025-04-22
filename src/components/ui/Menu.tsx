@@ -68,7 +68,7 @@ const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, depth = 0, 
           leaveTo="transform opacity-0 scale-95"
         >
           <div className="absolute left-full top-0 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-            {item.items.map((subItem) => (
+            {item.items?.map((subItem) => (
               <MenuItemComponent
                 key={subItem.id}
                 item={subItem}

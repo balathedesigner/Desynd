@@ -137,7 +137,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     >
       {/* Previous Button */}
       <Button
-        variant="outlined"
+        variant="outline"
         size="sm"
         onClick={onPrevious}
         disabled={currentPage === 1}
@@ -174,7 +174,7 @@ export const Pagination: React.FC<PaginationProps> = ({
 
       {/* Next Button */}
       <Button
-        variant="outlined"
+        variant="outline"
         size="sm"
         onClick={onNext}
         disabled={currentPage === lastPage}

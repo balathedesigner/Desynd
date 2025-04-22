@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu } from '@/components/ui/Menu';
-import { ComponentTemplate } from '@/components/shared/ComponentTemplate';
-import { ComponentPreview } from '@/components/shared/ComponentPreview';
+import { ComponentDocTemplate as ComponentTemplate } from '@/components/shared/ComponentDocTemplate';
+import { EmptyComponentTemplate as ComponentPreview } from '@/components/shared/EmptyComponentTemplate';
 import { ComponentPlayground } from '@/components/shared/ComponentPlayground';
 import { ChevronDownIcon, UserIcon, CogIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
 
@@ -42,7 +42,9 @@ const renderUseCases = () => {
     <div className="space-y-8">
       <div>
         <h3 className="text-lg font-medium mb-4">Basic Menu</h3>
-        <ComponentPreview>
+        <ComponentPreview
+          title="Basic Menu Example"
+          description="A simple menu with basic functionality">
           <Menu
             trigger={
               <button className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
@@ -56,7 +58,9 @@ const renderUseCases = () => {
 
       <div>
         <h3 className="text-lg font-medium mb-4">Right-Aligned Menu</h3>
-        <ComponentPreview>
+        <ComponentPreview
+          title="Right-Aligned Menu Example"
+          description="A menu aligned to the right side">
           <div className="text-right">
             <Menu
               trigger={
@@ -142,7 +146,7 @@ const renderApiReference = () => {
           </tr>
           <tr>
             <td>onClick</td>
-            <td>() => void</td>
+            <td>{'() => void'}</td>
             <td>Optional click handler for the menu item</td>
           </tr>
           <tr>

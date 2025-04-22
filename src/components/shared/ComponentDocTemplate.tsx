@@ -298,7 +298,7 @@ export function ComponentDocTemplate({
               <ChevronRight className="h-4 w-4" />
             </Button>
             <Button
-              variant="outlined"
+              variant="outline"
               size="sm"
               onClick={() => document.getElementById('api')?.scrollIntoView({ behavior: 'smooth' })}
             >

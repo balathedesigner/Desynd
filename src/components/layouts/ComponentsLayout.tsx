@@ -22,7 +22,7 @@ export default function ComponentsLayout({ children }: ComponentsLayoutProps) {
       // For each section, check if any of its items match the basePath
       return sidebarItems
         .filter(section => 
-          section.items.some(item => item.href.startsWith(basePath))
+          section.items.some(item => item.href?.startsWith(basePath))
         )
         .map(section => section.title);
     }
@@ -108,7 +108,7 @@ export default function ComponentsLayout({ children }: ComponentsLayoutProps) {
                   {section.items.map((item) => (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      href={item.href || '#'}
                       scroll={true}
                       className={clsx(
                         'block px-3 py-2 text-sm rounded-md transition-colors',
