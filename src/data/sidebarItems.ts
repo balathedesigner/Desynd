@@ -38,7 +38,7 @@ export const sidebarItems: SidebarSection[] = [
     title: 'Basic Components',
     items: [
       { name: 'Buttons', href: '/components/buttons', description: 'Button styles and variants' },
-      { name: 'Icons', href: '/components/icons', description: 'Icon library and usage', isComingSoon: true },
+      { name: 'Icons', href: '/components/icons', description: 'Icon library and usage' },
       { name: 'Avatars', href: '/components/avatar', description: 'User and content avatars' },
       { name: 'Badges', href: '/components/badges', description: 'Notification and status indicators' },
     ],
@@ -48,7 +48,7 @@ export const sidebarItems: SidebarSection[] = [
     items: [
       { name: 'Breadcrumbs', href: '/components/breadcrumbs', description: 'Hierarchical navigation paths' },
       { name: 'Tabs', href: '/components/tabs', description: 'Content organization and navigation', isComingSoon: true },
-      { name: 'Pagination', href: '/components/pagination', description: 'Navigation between pages of content', isComingSoon: true },
+      { name: 'Pagination', href: '/components/pagination', description: 'Navigation between pages of content' },
       { 
         name: 'Navigation Bar', 
         href: '/components/navigation-bar', 
@@ -60,13 +60,13 @@ export const sidebarItems: SidebarSection[] = [
         ]
       },
       { name: 'Links', href: '/components/links', description: 'Text links for navigation' },
-      { name: 'Stepper', href: '/components/stepper', description: 'Progress indication for multi-step flows', isComingSoon: true },
+      { name: 'Stepper', href: '/components/stepper', description: 'Progress indication for multi-step flows' },
     ],
   },
   {
     title: 'Data Display Components',
     items: [
-      { name: 'Table', href: '/components/table', description: 'Tabular data presentation', isComingSoon: true },
+      { name: 'Table', href: '/components/table', description: 'Tabular data presentation' },
       { name: 'List', href: '/components/list', description: 'Display collections of items', isComingSoon: true },
       { name: 'Cards', href: '/components/cards', description: 'Content containers with various layouts' },
       { name: 'Tree View', href: '/components/tree-view', description: 'Hierarchical data visualization', isComingSoon: true },
@@ -79,7 +79,7 @@ export const sidebarItems: SidebarSection[] = [
     items: [
       { name: 'Inputs', href: '/components/inputs', description: 'Text input fields and variants' },
       { name: 'Form Controls', href: '/components/form-controls', description: 'Checkboxes, radio buttons, and switches' },
-      { name: 'Select', href: '/components/select', description: 'Dropdown selection controls', isComingSoon: true },
+      { name: 'Select', href: '/components/select', description: 'Dropdown selection controls' },
       { name: 'Combobox', href: '/components/combobox', description: 'Combined input and dropdown lists', isComingSoon: true },
       { name: 'Date Picker', href: '/components/date-picker', description: 'Calendar-based date selection', isComingSoon: true },
       { name: 'Time Picker', href: '/components/time-picker', description: 'Time selection controls', isComingSoon: true },

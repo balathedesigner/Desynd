@@ -7,9 +7,9 @@ import { ComponentPlayground } from '@/components/shared/ComponentPlayground';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { SubsectionHeader } from '@/components/ui/SubsectionHeader';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost' | 'info' | 'warning' | 'destructive' | 'success';
+type ButtonVariant = 'default' | 'primary' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link' | 'info' | 'warning' | 'success' | 'icon';
 type ButtonState = 'default' | 'hover' | 'pressed' | 'focused' | 'disabled' | 'loading';
-type ButtonSize = 'sm' | 'md' | 'lg';
+type ButtonSize = 'default' | 'sm' | 'lg';
 
 const rightNavItems = {
   items: [
@@ -61,10 +61,24 @@ interface PlaygroundProps {
   className?: string;
 }
 
+interface PlaygroundControl {
+  type: 'select' | 'input' | 'chip';
+  label: string;
+  value: any;
+  options?: { value: string; label: string }[];
+  onChange: (value: any) => void;
+  disabled?: boolean;
+}
+
+interface PlaygroundControlGroup {
+  group: string;
+  items: PlaygroundControl[];
+}
+
 const defaultPlaygroundProps: PlaygroundProps = {
-    variant: 'primary',
+  variant: 'default',
   state: 'default',
-    size: 'md',
+  size: 'default',
   iconType: 'none',
   fullWidth: false,
   forceFullWidth: false,
@@ -73,25 +87,78 @@ const defaultPlaygroundProps: PlaygroundProps = {
   spacing: 'normal'
 };
 
-// Constants for button configuration
+// Update button configuration
 const BUTTON_CONFIG = {
   types: {
-    core: ['primary', 'secondary', 'outlined', 'ghost'],
-    status: ['info', 'warning', 'destructive', 'success']
+    core: ['default', 'primary', 'secondary', 'destructive', 'outline', 'ghost', 'link', 'icon'],
+    status: ['info', 'warning', 'success']
   },
-  sizes: ['sm', 'md', 'lg'],
+  sizes: ['default', 'sm', 'lg'],
   states: ['default', 'hover', 'pressed', 'focused', 'disabled', 'loading']
 } as const;
 
 export default function ButtonsPage() {
   const [playgroundProps, setPlaygroundProps] = useState<PlaygroundProps>(defaultPlaygroundProps);
 
+  // Base function to render a button with consistent styling
+  const renderButton = (props: {
+    variant?: ButtonVariant;
+    size?: ButtonSize;
+    state?: ButtonState;
+    iconType?: 'none' | 'left' | 'right' | 'both';
+    customText?: string;
+    className?: string;
+    fullWidth?: boolean;
+  }) => {
+    const {
+      variant = 'default',
+      size = 'default',
+      state = 'default',
+      iconType = 'none',
+      customText = 'Button',
+      className,
+      fullWidth = false
+    } = props;
+
+    const buttonProps: any = {
+      variant,
+      size: variant === 'icon' ? undefined : size,
+      disabled: state === 'disabled',
+      isLoading: state === 'loading',
+      fullWidth: variant === 'icon' ? false : fullWidth,
+      className: cn(className)
+    };
+
+    // Handle icon-only variant
+    if (variant === 'icon') {
+      return (
+        <Button {...buttonProps}>
+          {buttonProps.isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Plus className="h-4 w-4" />
+          )}
+        </Button>
+      );
+    }
+
+    // Handle regular buttons with optional icons
+    if (iconType === 'left' || iconType === 'both') {
+      buttonProps.leftIcon = <ArrowRight className="h-4 w-4" />;
+    }
+    if (iconType === 'right' || iconType === 'both') {
+      buttonProps.rightIcon = <ArrowRight className="h-4 w-4" />;
+    }
+
+    return <Button {...buttonProps}>{customText}</Button>;
+  };
+
   const generateCode = () => {
     const props = [];
     
     // Type or Status
-    if (['primary', 'secondary', 'outlined', 'ghost'].includes(playgroundProps.variant)) {
-      if (playgroundProps.variant !== 'primary') {
+    if (['default', 'primary', 'secondary', 'outline', 'ghost', 'link'].includes(playgroundProps.variant)) {
+      if (playgroundProps.variant !== 'default') {
         props.push(`variant="${playgroundProps.variant}"`);
       }
     } else if (['destructive', 'success', 'warning', 'info'].includes(playgroundProps.variant)) {
@@ -99,7 +166,7 @@ export default function ButtonsPage() {
     }
     
     // Size
-    if (playgroundProps.size !== 'md') {
+    if (playgroundProps.size !== 'default') {
       props.push(`size="${playgroundProps.size}"`);
     }
 
@@ -116,21 +183,9 @@ export default function ButtonsPage() {
       props.push('fullWidth={true}');
     }
 
-    // Animation and spacing
+    // Animation speed only
     if (playgroundProps.animationSpeed !== 'normal') {
       props.push(`className="${ANIMATION_SPEEDS[playgroundProps.animationSpeed]}"`);
-    }
-
-    if (playgroundProps.spacing !== 'normal') {
-      const className = playgroundProps.spacing === 'compact' ? 'px-2' : 'px-6';
-      const existingClassName = props.find(p => p.startsWith('className='));
-      
-      if (existingClassName) {
-        const index = props.indexOf(existingClassName);
-        props[index] = existingClassName.replace('}"', ` ${className}}"`);
-      } else {
-        props.push(`className="${className}"`);
-      }
     }
 
     const propsString = props.length > 0 ? ' ' + props.join(' ') : '';
@@ -149,127 +204,80 @@ export default function ButtonsPage() {
       iconProps += "rightIcon={<ArrowRight className=\"h-4 w-4\" />} ";
     }
 
-    // Add state comments in the code
-    let stateComment = '';
-    if (['hover', 'pressed', 'focused'].includes(playgroundProps.state)) {
-      stateComment = `{/* Note: Interactive states like ${playgroundProps.state} are shown here for demonstration purposes only */}\n    `;
-    }
-
     return `import { Button } from '@/components/ui/Button';
 ${importIcons}
 export default function Example() {
-    return (
-    ${stateComment}<Button${propsString} ${iconProps}>
-      ${buttonContent}
-      </Button>
-    );
+  return (
+    <Button${propsString} ${iconProps}>${buttonContent}</Button>
+  );
 }`;
   };
 
   const renderDocExample = (props: Partial<PlaygroundProps>) => {
-    const mergedProps = { ...playgroundProps, ...props };
-    const buttonProps: any = {
+    const mergedProps = { ...defaultPlaygroundProps, ...props };
+    return renderButton({
       variant: mergedProps.variant,
       size: mergedProps.size,
-      disabled: mergedProps.state === 'disabled',
-      isLoading: mergedProps.state === 'loading',
-      fullWidth: mergedProps.fullWidth || props.forceFullWidth,
-      className: cn(
-        'transition-all whitespace-nowrap',
-        mergedProps.spacing === 'compact' && 'px-2',
-        mergedProps.spacing === 'relaxed' && 'px-6',
-        getAnimationClass(mergedProps.animationSpeed),
-        mergedProps.className
-      )
-    };
-
-    // Add icons based on iconType
-    if (mergedProps.iconType === 'left' || mergedProps.iconType === 'both') {
-      buttonProps.leftIcon = <ArrowRight className="h-4 w-4" />;
-    }
-    
-    if (mergedProps.iconType === 'right' || mergedProps.iconType === 'both') {
-      buttonProps.rightIcon = <ArrowRight className="h-4 w-4" />;
-    }
-
-    const buttonText = mergedProps.customText || 'Button';
-
-    // Wrap with state-specific styling
-    let button = <Button {...buttonProps}>{buttonText}</Button>;
-
-    // Add interactive state styling
-    if (mergedProps.state === 'hover') {
-      button = (
-        <div className="relative">
-          {button}
-          <div className="absolute inset-0 bg-black/5 rounded-md pointer-events-none"></div>
-        </div>
-      );
-    } else if (mergedProps.state === 'pressed') {
-      button = (
-        <div className="relative">
-          {button}
-          <div className="absolute inset-0 bg-black/10 rounded-md pointer-events-none"></div>
-        </div>
-      );
-    } else if (mergedProps.state === 'focused') {
-      button = (
-        <div className="relative">
-          {button}
-          <div className="absolute inset-0 ring-2 ring-blue-500 rounded-md pointer-events-none"></div>
-        </div>
-      );
-    }
-
-    return button;
+      state: mergedProps.state,
+      iconType: mergedProps.iconType,
+      customText: mergedProps.customText,
+      fullWidth: mergedProps.fullWidth || mergedProps.forceFullWidth,
+      className: mergedProps.className
+    });
   };
 
-  const renderCoreVariants = () => (
-    <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Core Types */}
-        <div className="space-y-4">
-          <SubsectionHeader title="Basic Types" />
-          <div className="flex flex-wrap gap-4">
-            {BUTTON_CONFIG.types.core.map(variant => (
-              <div key={variant} className="flex-none">
-                {renderDocExample({ variant: variant as ButtonVariant })}
-              </div>
-            ))}
-          </div>
+  const renderCoreVariants = () => {
+    return (
+      <div className="space-y-8">
+        <div className="flex flex-col gap-4">
+          <h3 className="text-lg font-medium">Core Variants</h3>
+          <p className="text-sm text-slate-500">
+            Our button component comes with several predefined variants to suit different contexts and needs.
+          </p>
         </div>
-        
-        {/* Status Types */}
-        <div className="space-y-4">
-          <SubsectionHeader title="Status Types" />
+        <div className="grid gap-8">
           <div className="flex flex-wrap gap-4">
-            {BUTTON_CONFIG.types.status.map(variant => (
-              <div key={variant} className="flex-none">
-                {renderDocExample({ variant: variant as ButtonVariant })}
-              </div>
-            ))}
+            <Button variant="default">Default</Button>
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="destructive">Destructive</Button>
+          </div>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="link">Link</Button>
+          </div>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="info">Info</Button>
+            <Button variant="warning">Warning</Button>
+            <Button variant="success">Success</Button>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderCompositions = () => (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="p-6 space-y-8">
-        <div>
-          <h3 className="text-sm font-medium mb-4">Button Group</h3>
-          <div className="flex flex-wrap gap-2">
-            {renderDocExample({ variant: 'primary' })}
-            {renderDocExample({ variant: 'outlined' })}
-          </div>
+    <div className="space-y-8">
+      <div className="flex flex-col gap-4">
+        <h3 className="text-lg font-medium">Button Groups & Compositions</h3>
+        <p className="text-sm text-slate-500">
+          Combine buttons in different ways to create meaningful action groups.
+        </p>
+      </div>
+      <div className="grid gap-8">
+        <div className="flex flex-wrap gap-4">
+          <Button variant="default">Primary Action</Button>
+          <Button variant="outline">Secondary Action</Button>
         </div>
-        <div>
-          <h3 className="text-sm font-medium mb-4">With Icons</h3>
-          <div className="flex flex-wrap gap-2">
-            {renderDocExample({ iconType: 'left' })}
-            {renderDocExample({ iconType: 'right' })}
-          </div>
+        <div className="flex flex-wrap gap-4">
+          <Button variant="default" leftIcon={<Plus className="h-4 w-4" />}>With Left Icon</Button>
+          <Button variant="default" rightIcon={<ChevronRight className="h-4 w-4" />}>With Right Icon</Button>
+        </div>
+        <div className="flex flex-wrap gap-4">
+          <Button variant="ghost" size="icon"><Plus className="h-4 w-4" /></Button>
+          <Button variant="outline" size="icon"><Info className="h-4 w-4" /></Button>
+          <Button variant="default" size="icon"><Check className="h-4 w-4" /></Button>
         </div>
       </div>
     </div>
@@ -372,26 +380,22 @@ export default function Example() {
 
   const renderInteractiveStates = () => (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Basic States */}
-        <div className="space-y-4">
-          <SubsectionHeader title="Basic States" />
-          <div className="flex flex-wrap gap-4">
-            {BUTTON_CONFIG.states.filter(state => !['loading', 'disabled'].includes(state)).map(state => (
-              <div key={state} className="flex-none">
-                {renderDocExample({ variant: 'primary', state: state as ButtonState })}
-              </div>
-            ))}
-          </div>
+      <div className="flex flex-col gap-4">
+        <h3 className="text-lg font-medium">Interactive States</h3>
+        <p className="text-sm text-slate-500">
+          Buttons respond to user interaction with different states.
+        </p>
+      </div>
+      <div className="grid gap-8">
+        <div className="flex flex-wrap gap-4">
+          <Button variant="default">Default State</Button>
+          <Button variant="default" className="hover:bg-blue-700">Hover State</Button>
+          <Button variant="default" className="active:bg-blue-800">Pressed State</Button>
+          <Button variant="default" className="focus:ring-2">Focused State</Button>
         </div>
-
-        {/* Special States */}
-        <div className="space-y-4">
-          <SubsectionHeader title="Special States" />
-          <div className="flex flex-wrap gap-4">
-            {renderDocExample({ variant: 'primary', state: 'loading' })}
-            {renderDocExample({ variant: 'primary', state: 'disabled' })}
-          </div>
+        <div className="flex flex-wrap gap-4">
+          <Button variant="default" disabled>Disabled</Button>
+          <Button variant="default" isLoading>Loading</Button>
         </div>
       </div>
     </div>
@@ -399,235 +403,44 @@ export default function Example() {
 
   const renderPatterns = () => (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-6">
-          <h3 className="text-lg font-semibold text-green-600 mb-4">Do's</h3>
-          <ul className="space-y-4">
-            <li className="flex gap-3">
-              <div className="flex-shrink-0 h-6 w-6 bg-green-100 rounded-full flex items-center justify-center">
-                <svg className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-gray-700">Use clear, action-oriented labels (e.g., "Save Changes", "Create Account")</p>
-                <div className="mt-2">
-                  {renderDocExample({ variant: 'primary', customText: 'Save Changes' })}
-                </div>
-              </div>
-            </li>
-            <li className="flex gap-3">
-              <div className="flex-shrink-0 h-6 w-6 bg-green-100 rounded-full flex items-center justify-center">
-                <svg className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-gray-700">Use different button variants to establish visual hierarchy</p>
-                <div className="mt-2 flex gap-2">
-                  {renderDocExample({ variant: 'primary', customText: 'Primary Action' })}
-                  {renderDocExample({ variant: 'secondary', customText: 'Secondary' })}
-                </div>
-              </div>
-            </li>
-            <li className="flex gap-3">
-              <div className="flex-shrink-0 h-6 w-6 bg-green-100 rounded-full flex items-center justify-center">
-                <svg className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-gray-700">Use icons to enhance button meaning when appropriate</p>
-                <div className="mt-2">
-                  {renderDocExample({ variant: 'primary', customText: 'Download Report', iconType: 'left' })}
-                </div>
-              </div>
-            </li>
-            <li className="flex gap-3">
-              <div className="flex-shrink-0 h-6 w-6 bg-green-100 rounded-full flex items-center justify-center">
-                <svg className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-gray-700">Show loading states for asynchronous actions</p>
-                <div className="mt-2">
-                  {renderDocExample({ variant: 'primary', customText: 'Saving...', state: 'loading' })}
-                </div>
-              </div>
-            </li>
-          </ul>
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-green-600">Do's</h3>
+        <div className="space-y-6">
+          <div>
+            <p className="text-sm text-gray-700 mb-2">Use clear, action-oriented labels</p>
+            {renderButton({ customText: 'Save Changes' })}
+          </div>
+          <div>
+            <p className="text-sm text-gray-700 mb-2">Use different variants for hierarchy</p>
+            <div className="flex gap-2">
+              {renderButton({ customText: 'Primary Action' })}
+              {renderButton({ variant: 'secondary', customText: 'Secondary' })}
+            </div>
+          </div>
+          <div>
+            <p className="text-sm text-gray-700 mb-2">Use icons meaningfully</p>
+            {renderButton({ customText: 'Download Report', iconType: 'left' })}
+          </div>
         </div>
       </div>
-
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-6">
-          <h3 className="text-lg font-semibold text-red-600 mb-4">Don'ts</h3>
-          <ul className="space-y-4">
-            <li className="flex gap-3">
-              <div className="flex-shrink-0 h-6 w-6 bg-red-100 rounded-full flex items-center justify-center">
-                <svg className="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-gray-700">Don't use vague or generic labels</p>
-                <div className="mt-2">
-                  {renderDocExample({ variant: 'primary', customText: 'Click Here' })}
-                </div>
-              </div>
-            </li>
-            <li className="flex gap-3">
-              <div className="flex-shrink-0 h-6 w-6 bg-red-100 rounded-full flex items-center justify-center">
-                <svg className="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-gray-700">Don't use too many primary buttons in one section</p>
-                <div className="mt-2 space-y-2">
-                  {renderDocExample({ variant: 'primary', customText: 'Action 1' })}
-                  {renderDocExample({ variant: 'primary', customText: 'Action 2' })}
-                  {renderDocExample({ variant: 'primary', customText: 'Action 3' })}
-                </div>
-              </div>
-            </li>
-            <li className="flex gap-3">
-              <div className="flex-shrink-0 h-6 w-6 bg-red-100 rounded-full flex items-center justify-center">
-                <svg className="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-gray-700">Don't use inconsistent sizes in a button group</p>
-                <div className="mt-2 flex items-center gap-2">
-                  {renderDocExample({ variant: 'primary', customText: 'Small', size: 'sm' })}
-                  {renderDocExample({ variant: 'primary', customText: 'Medium', size: 'md' })}
-                  {renderDocExample({ variant: 'primary', customText: 'Large', size: 'lg' })}
-                </div>
-              </div>
-            </li>
-            <li className="flex gap-3">
-              <div className="flex-shrink-0 h-6 w-6 bg-red-100 rounded-full flex items-center justify-center">
-                <svg className="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-gray-700">Don't overuse destructive actions without confirmation</p>
-                <div className="mt-2">
-                  {renderDocExample({ variant: 'destructive', customText: 'Delete Account' })}
-                </div>
-              </div>
-            </li>
-          </ul>
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-red-600">Don'ts</h3>
+        <div className="space-y-6">
+          <div>
+            <p className="text-sm text-gray-700 mb-2">Don't use vague labels</p>
+            {renderButton({ customText: 'Click Here' })}
+          </div>
+          <div>
+            <p className="text-sm text-gray-700 mb-2">Don't use inconsistent sizes</p>
+            <div className="flex items-center gap-2">
+              {renderButton({ size: 'sm', customText: 'Small' })}
+              {renderButton({ customText: 'Medium' })}
+              {renderButton({ size: 'lg', customText: 'Large' })}
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  );
-
-  const renderPlayground = () => (
-    <ComponentPlayground
-      defaultProps={defaultPlaygroundProps}
-      controls={[
-        {
-          group: 'Button Type & Status',
-          items: [
-            {
-              type: 'select' as const,
-              label: 'Button Type',
-              value: playgroundProps.variant,
-              options: BUTTON_CONFIG.types.core.map(type => ({ value: type, label: type })),
-              onChange: (value: ButtonVariant) => setPlaygroundProps(prev => ({ ...prev, variant: value }))
-            },
-            {
-              type: 'select' as const,
-              label: 'Status',
-              value: playgroundProps.variant,
-              options: [
-                { value: 'none', label: 'None' },
-                ...BUTTON_CONFIG.types.status.map(type => ({ value: type, label: type }))
-              ],
-              onChange: (value: ButtonVariant) => setPlaygroundProps(prev => ({ ...prev, variant: value }))
-            }
-          ]
-        },
-        {
-          group: 'Appearance',
-          items: [
-            {
-              type: 'select' as const,
-              label: 'Size',
-              value: playgroundProps.size,
-              options: BUTTON_CONFIG.sizes.map(size => ({ value: size, label: size })),
-              onChange: (value: ButtonSize) => setPlaygroundProps(prev => ({ ...prev, size: value }))
-            },
-            {
-              type: 'select' as const,
-              label: 'Icon',
-              value: playgroundProps.iconType,
-              options: [
-                { value: 'none', label: 'None' },
-                { value: 'left', label: 'Left Icon' },
-                { value: 'right', label: 'Right Icon' },
-                { value: 'both', label: 'Both Sides' }
-              ],
-              onChange: (value: PlaygroundProps['iconType']) => setPlaygroundProps(prev => ({ ...prev, iconType: value }))
-            },
-            {
-              type: 'chip' as const,
-              label: 'Full Width',
-              value: playgroundProps.fullWidth,
-              onChange: (value: boolean) => setPlaygroundProps(prev => ({ ...prev, fullWidth: value }))
-            }
-          ]
-        },
-        {
-          group: 'Content & Animation',
-          items: [
-            {
-              type: 'input' as const,
-              label: 'Custom Text',
-              value: playgroundProps.customText,
-              onChange: (value: string) => setPlaygroundProps(prev => ({ ...prev, customText: value }))
-            },
-            {
-              type: 'select' as const,
-              label: 'Animation Speed',
-              value: playgroundProps.animationSpeed,
-              options: [
-                { value: 'fast', label: 'Fast' },
-                { value: 'normal', label: 'Normal' },
-                { value: 'slow', label: 'Slow' }
-              ],
-              onChange: (value: PlaygroundProps['animationSpeed']) => setPlaygroundProps(prev => ({ ...prev, animationSpeed: value }))
-            }
-          ]
-        },
-        {
-          group: 'Animation & Spacing',
-          items: [
-            getAnimationControl(
-              playgroundProps.animationSpeed,
-              (value) => setPlaygroundProps({ ...playgroundProps, animationSpeed: value })
-            ),
-            {
-              type: 'select',
-              label: 'Spacing',
-              options: [
-                { value: 'compact', label: 'Compact' },
-                { value: 'normal', label: 'Normal' },
-                { value: 'relaxed', label: 'Relaxed' }
-              ],
-              value: playgroundProps.spacing,
-              onChange: (value) => setPlaygroundProps({ ...playgroundProps, spacing: value as 'compact' | 'normal' | 'relaxed' })
-            }
-          ]
-        }
-      ]}
-      preview={renderDocExample(playgroundProps)}
-      code={generateCode()}
-    />
   );
 
   const renderApiReference = () => (
@@ -648,14 +461,14 @@ export default function Example() {
               <tbody className="divide-y divide-gray-100">
                 <tr>
                   <td className="py-2 font-mono text-xs">variant</td>
-                  <td className="py-2 font-mono text-xs">primary | secondary | outlined | ghost | destructive | success | warning | info</td>
-                  <td className="py-2 font-mono text-xs">primary</td>
+                  <td className="py-2 font-mono text-xs">default | primary | secondary | destructive | outline | ghost | link | info | warning | success</td>
+                  <td className="py-2 font-mono text-xs">default</td>
                   <td className="py-2">Visual style of the button</td>
                 </tr>
                 <tr>
                   <td className="py-2 font-mono text-xs">size</td>
-                  <td className="py-2 font-mono text-xs">sm | md | lg</td>
-                  <td className="py-2 font-mono text-xs">md</td>
+                  <td className="py-2 font-mono text-xs">default | sm | lg | icon</td>
+                  <td className="py-2 font-mono text-xs">default</td>
                   <td className="py-2">Size of the button</td>
                 </tr>
                 <tr>
@@ -698,45 +511,6 @@ export default function Example() {
             </table>
           </div>
         </div>
-        <div className="p-6">
-          <h3 className="text-sm font-medium mb-4">Utility Classes</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="text-left">
-                  <th className="pb-2">Class</th>
-                  <th className="pb-2">Description</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                <tr>
-                  <td className="py-2 font-mono text-xs">duration-150</td>
-                  <td className="py-2">Fast animation speed (150ms)</td>
-                </tr>
-                <tr>
-                  <td className="py-2 font-mono text-xs">duration-300</td>
-                  <td className="py-2">Normal animation speed (300ms, default)</td>
-                </tr>
-                <tr>
-                  <td className="py-2 font-mono text-xs">duration-500</td>
-                  <td className="py-2">Slow animation speed (500ms)</td>
-                </tr>
-                <tr>
-                  <td className="py-2 font-mono text-xs">px-2</td>
-                  <td className="py-2">Compact horizontal padding</td>
-                </tr>
-                <tr>
-                  <td className="py-2 font-mono text-xs">px-4</td>
-                  <td className="py-2">Normal horizontal padding (default)</td>
-                </tr>
-                <tr>
-                  <td className="py-2 font-mono text-xs">px-6</td>
-                  <td className="py-2">Relaxed horizontal padding</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -748,32 +522,33 @@ export default function Example() {
           <h3 className="text-sm font-medium mb-4">Basic Examples</h3>
           <div className="space-y-6">
             <div>
-              <h4 className="text-sm font-medium mb-2">Primary Buttons</h4>
+              <h4 className="text-sm font-medium mb-2">Default Buttons</h4>
               <div className="flex flex-wrap gap-4">
-                {renderDocExample({ variant: 'primary', size: 'sm', customText: 'Small' })}
-                {renderDocExample({ variant: 'primary', customText: 'Medium' })}
-                {renderDocExample({ variant: 'primary', size: 'lg', customText: 'Large' })}
+                <Button variant="default" size="sm">Small</Button>
+                <Button variant="default">Default</Button>
+                <Button variant="default" size="lg">Large</Button>
               </div>
-              <p className="mt-2 text-sm text-gray-600">Use primary buttons for main actions and important CTAs.</p>
+              <p className="mt-2 text-sm text-gray-600">Use default buttons for main actions and important CTAs.</p>
             </div>
             <div>
-              <h4 className="text-sm font-medium mb-2">Secondary and Outlined Buttons</h4>
+              <h4 className="text-sm font-medium mb-2">Alternative Styles</h4>
               <div className="flex flex-wrap gap-4">
-                {renderDocExample({ variant: 'secondary', customText: 'Secondary' })}
-                {renderDocExample({ variant: 'outlined', customText: 'Outlined' })}
-                {renderDocExample({ variant: 'ghost', customText: 'Ghost' })}
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="outline">Outline</Button>
+                <Button variant="ghost">Ghost</Button>
+                <Button variant="link">Link</Button>
               </div>
-              <p className="mt-2 text-sm text-gray-600">Use secondary buttons for alternative actions and outlined for less emphasis.</p>
+              <p className="mt-2 text-sm text-gray-600">Use alternative styles for different levels of emphasis.</p>
             </div>
             <div>
-              <h4 className="text-sm font-medium mb-2">State-Specific Buttons</h4>
+              <h4 className="text-sm font-medium mb-2">State Variants</h4>
               <div className="flex flex-wrap gap-4">
-                {renderDocExample({ variant: 'destructive', customText: 'Destructive' })}
-                {renderDocExample({ variant: 'success', customText: 'Success' })}
-                {renderDocExample({ variant: 'warning', customText: 'Warning' })}
-                {renderDocExample({ variant: 'info', customText: 'Info' })}
+                <Button variant="destructive">Destructive</Button>
+                <Button variant="success">Success</Button>
+                <Button variant="warning">Warning</Button>
+                <Button variant="info">Info</Button>
               </div>
-              <p className="mt-2 text-sm text-gray-600">Use state-specific buttons to communicate the nature of the action.</p>
+              <p className="mt-2 text-sm text-gray-600">Use state variants to communicate the nature of the action.</p>
             </div>
           </div>
         </div>
@@ -783,107 +558,19 @@ export default function Example() {
             <div>
               <h4 className="text-sm font-medium mb-2">Icon Placement</h4>
               <div className="flex flex-wrap gap-4">
-                {renderDocExample({ variant: 'primary', iconType: 'left', customText: 'Left Icon' })}
-                {renderDocExample({ variant: 'primary', iconType: 'right', customText: 'Right Icon' })}
-                {renderDocExample({ variant: 'primary', iconType: 'both', customText: 'Both Sides' })}
+                <Button variant="default" leftIcon={<ArrowRight className="h-4 w-4" />}>Left Icon</Button>
+                <Button variant="default" rightIcon={<ArrowRight className="h-4 w-4" />}>Right Icon</Button>
+                <Button variant="default" leftIcon={<ArrowRight className="h-4 w-4" />} rightIcon={<ArrowRight className="h-4 w-4" />}>Both Sides</Button>
               </div>
               <p className="mt-2 text-sm text-gray-600">Use icons to enhance clarity and visual appeal of buttons.</p>
             </div>
             <div>
-              <h4 className="text-sm font-medium mb-2">Common Icon Use Cases</h4>
+              <h4 className="text-sm font-medium mb-2">Icon Only Buttons</h4>
               <div className="flex flex-wrap gap-4">
-                {renderDocExample({ variant: 'primary', iconType: 'left', customText: 'Download' })}
-                {renderDocExample({ variant: 'primary', iconType: 'right', customText: 'Next Step' })}
-                {renderDocExample({ variant: 'secondary', iconType: 'left', customText: 'Search' })}
+                <Button variant="default" size="icon"><Plus className="h-4 w-4" /></Button>
+                <Button variant="outline" size="icon"><Info className="h-4 w-4" /></Button>
+                <Button variant="ghost" size="icon"><Check className="h-4 w-4" /></Button>
               </div>
-            </div>
-          </div>
-        </div>
-        <div id="loading">
-          <h3 className="text-sm font-medium mb-4">Loading States</h3>
-          <div className="flex flex-wrap gap-4">
-            {renderDocExample({ variant: 'primary', state: 'loading', customText: 'Submitting...' })}
-            {renderDocExample({ variant: 'secondary', state: 'loading', customText: 'Processing...' })}
-          </div>
-          <p className="mt-2 text-sm text-gray-600">Use loading states to indicate that the button's action is in progress.</p>
-        </div>
-        <div id="disabled">
-          <h3 className="text-sm font-medium mb-4">Disabled State</h3>
-          <div className="flex flex-wrap gap-4">
-            {renderDocExample({ variant: 'primary', state: 'disabled', customText: 'Disabled Primary' })}
-            {renderDocExample({ variant: 'secondary', state: 'disabled', customText: 'Disabled Secondary' })}
-            {renderDocExample({ variant: 'outlined', state: 'disabled', customText: 'Disabled Outlined' })}
-          </div>
-          <p className="mt-2 text-sm text-gray-600">Use disabled states to indicate that a button cannot be interacted with.</p>
-        </div>
-        <div id="full-width">
-          <h3 className="text-sm font-medium mb-4">Full Width</h3>
-          <div className="space-y-4">
-            <div>
-              {renderDocExample({ variant: 'primary', fullWidth: true, customText: 'Full Width Primary Button' })}
-            </div>
-            <div>
-              {renderDocExample({ variant: 'outlined', fullWidth: true, customText: 'Full Width Outlined Button' })}
-            </div>
-          </div>
-          <p className="mt-2 text-sm text-gray-600">Use full width buttons for mobile interfaces or to emphasize important actions.</p>
-        </div>
-        <div id="variant-combinations">
-          <h3 className="text-sm font-medium mb-4">Variant Combinations</h3>
-          <div className="space-y-6">
-            <div>
-              <h4 className="text-sm font-medium mb-2">Outlined State Variants</h4>
-              <div className="flex flex-wrap gap-4">
-                {renderDocExample({ variant: 'outlined', customText: 'Default Outlined' })}
-                {renderDocExample({ variant: 'outlined', customText: 'Destructive', className: 'border-red-500 text-red-500 hover:bg-red-50' })}
-                {renderDocExample({ variant: 'outlined', customText: 'Success', className: 'border-green-500 text-green-500 hover:bg-green-50' })}
-                {renderDocExample({ variant: 'outlined', customText: 'Warning', className: 'border-yellow-500 text-yellow-500 hover:bg-yellow-50' })}
-                {renderDocExample({ variant: 'outlined', customText: 'Info', className: 'border-blue-500 text-blue-500 hover:bg-blue-50' })}
-              </div>
-              <p className="mt-2 text-sm text-gray-600">Outlined buttons can be combined with state colors for different contexts.</p>
-            </div>
-            
-            <div>
-              <h4 className="text-sm font-medium mb-2">Ghost State Variants</h4>
-              <div className="flex flex-wrap gap-4">
-                {renderDocExample({ variant: 'ghost', customText: 'Default Ghost' })}
-                {renderDocExample({ variant: 'ghost', customText: 'Destructive', className: 'text-red-500 hover:bg-red-50' })}
-                {renderDocExample({ variant: 'ghost', customText: 'Success', className: 'text-green-500 hover:bg-green-50' })}
-                {renderDocExample({ variant: 'ghost', customText: 'Warning', className: 'text-yellow-500 hover:bg-yellow-50' })}
-                {renderDocExample({ variant: 'ghost', customText: 'Info', className: 'text-blue-500 hover:bg-blue-50' })}
-              </div>
-              <p className="mt-2 text-sm text-gray-600">Ghost buttons can be styled with state colors for subtle state indication.</p>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-medium mb-2">Combined States</h4>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-xs text-gray-500 mb-2">Loading States with Variants</p>
-                  <div className="flex flex-wrap gap-4">
-                    {renderDocExample({ variant: 'outlined', state: 'loading', customText: 'Loading Outlined' })}
-                    {renderDocExample({ variant: 'ghost', state: 'loading', customText: 'Loading Ghost' })}
-                    {renderDocExample({ variant: 'destructive', state: 'loading', customText: 'Loading Destructive' })}
-                  </div>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-2">Disabled States with Variants</p>
-                  <div className="flex flex-wrap gap-4">
-                    {renderDocExample({ variant: 'outlined', state: 'disabled', customText: 'Disabled Outlined' })}
-                    {renderDocExample({ variant: 'ghost', state: 'disabled', customText: 'Disabled Ghost' })}
-                    {renderDocExample({ variant: 'destructive', state: 'disabled', customText: 'Disabled Destructive' })}
-                  </div>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-2">With Icons and States</p>
-                  <div className="flex flex-wrap gap-4">
-                    {renderDocExample({ variant: 'outlined', state: 'loading', iconType: 'left', customText: 'Loading with Icon' })}
-                    {renderDocExample({ variant: 'ghost', state: 'disabled', iconType: 'right', customText: 'Disabled with Icon' })}
-                    {renderDocExample({ variant: 'destructive', iconType: 'both', customText: 'Icons Both Sides' })}
-                  </div>
-                </div>
-              </div>
-              <p className="mt-2 text-sm text-gray-600">Buttons can combine different variants, states, and features for complex use cases.</p>
             </div>
           </div>
         </div>
@@ -891,11 +578,126 @@ export default function Example() {
     </div>
   );
 
-  const renderPlaygroundExample = (props: Partial<PlaygroundProps>) => (
-    <div className="flex items-center justify-center min-h-[200px] bg-gray-50 rounded-lg p-6">
-      <div className="w-auto">
-        {renderDocExample(props)}
-      </div>
+  const renderPlayground = () => (
+    <div className="space-y-8">
+      <ComponentPlayground
+        defaultProps={defaultPlaygroundProps}
+        controls={[
+          {
+            group: 'Variant & Style',
+            items: [
+              {
+                type: 'select' as const,
+                label: 'Variant',
+                value: playgroundProps.variant,
+                options: [
+                  { value: 'default', label: 'Default' },
+                  { value: 'primary', label: 'Primary' },
+                  { value: 'secondary', label: 'Secondary' },
+                  { value: 'destructive', label: 'Destructive' },
+                  { value: 'outline', label: 'Outline' },
+                  { value: 'ghost', label: 'Ghost' },
+                  { value: 'link', label: 'Link' },
+                  { value: 'info', label: 'Info' },
+                  { value: 'warning', label: 'Warning' },
+                  { value: 'success', label: 'Success' },
+                  { value: 'icon', label: 'Icon' }
+                ],
+                onChange: (value: ButtonVariant) => {
+                  if (value === 'icon') {
+                    // Reset icon type and text when switching to icon variant
+                    setPlaygroundProps(prev => ({ ...prev, variant: value, iconType: 'none', customText: '' }));
+                  } else {
+                    setPlaygroundProps(prev => ({ ...prev, variant: value }));
+                  }
+                }
+              }
+            ]
+          },
+          {
+            group: 'Size & Layout',
+            items: [
+              {
+                type: 'select' as const,
+                label: 'Size',
+                value: playgroundProps.size,
+                disabled: playgroundProps.variant === 'icon',
+                options: [
+                  { value: 'default', label: 'Default' },
+                  { value: 'sm', label: 'Small' },
+                  { value: 'lg', label: 'Large' }
+                ],
+                onChange: (value: ButtonSize) => setPlaygroundProps(prev => ({ ...prev, size: value }))
+              },
+              {
+                type: 'select' as const,
+                label: 'Icon',
+                value: playgroundProps.iconType,
+                disabled: playgroundProps.variant === 'icon',
+                options: [
+                  { value: 'none', label: 'None' },
+                  { value: 'left', label: 'Left Icon' },
+                  { value: 'right', label: 'Right Icon' },
+                  { value: 'both', label: 'Both Sides' }
+                ],
+                onChange: (value: PlaygroundProps['iconType']) => setPlaygroundProps(prev => ({ ...prev, iconType: value }))
+              },
+              {
+                type: 'chip' as const,
+                label: 'Full Width',
+                value: playgroundProps.fullWidth,
+                disabled: playgroundProps.variant === 'icon',
+                onChange: (value: boolean) => setPlaygroundProps(prev => ({ ...prev, fullWidth: value }))
+              }
+            ]
+          },
+          {
+            group: 'State & Interaction',
+            items: [
+              {
+                type: 'select' as const,
+                label: 'State',
+                value: playgroundProps.state,
+                options: [
+                  { value: 'default', label: 'Default' },
+                  { value: 'loading', label: 'Loading' },
+                  { value: 'disabled', label: 'Disabled' }
+                ],
+                onChange: (value: ButtonState) => setPlaygroundProps(prev => ({ ...prev, state: value }))
+              },
+              {
+                type: 'select' as const,
+                label: 'Animation Speed',
+                value: playgroundProps.animationSpeed,
+                options: [
+                  { value: 'fast', label: 'Fast' },
+                  { value: 'normal', label: 'Normal' },
+                  { value: 'slow', label: 'Slow' }
+                ],
+                onChange: (value: AnimationSpeed) => setPlaygroundProps(prev => ({ ...prev, animationSpeed: value }))
+              }
+            ]
+          },
+          {
+            group: 'Content',
+            items: [
+              {
+                type: 'input' as const,
+                label: 'Button Text',
+                value: playgroundProps.customText,
+                disabled: playgroundProps.variant === 'icon',
+                onChange: (value: string) => setPlaygroundProps(prev => ({ ...prev, customText: value }))
+              }
+            ]
+          }
+        ]}
+        preview={
+          <div className="w-full bg-blue-50/50 rounded-lg p-10 flex items-center justify-center">
+            {renderDocExample(playgroundProps)}
+          </div>
+        }
+        code=""
+      />
     </div>
   );
 
