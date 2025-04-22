@@ -205,7 +205,7 @@ const HomePage: NextPage = () => {
               </div>
             </motion.div>
 
-            {/* CTA section with multiple options */}
+            {/* CTA section with single button */}
             <motion.div 
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-16"
@@ -218,15 +218,6 @@ const HomePage: NextPage = () => {
                   rightIcon={<ArrowRight className="ml-2 w-5 h-5" />}
                 >
                   Explore the Library
-                </Button>
-              </Link>
-              <Link href="/docs">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="text-white border-white/20 hover:bg-white/10 transition-all duration-300"
-                >
-                  Read the Docs
                 </Button>
               </Link>
             </motion.div>
