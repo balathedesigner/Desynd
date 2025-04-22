@@ -4,6 +4,8 @@ import { ComponentDocTemplate as ComponentTemplate } from '@/components/shared/C
 import { EmptyComponentTemplate as ComponentPreview } from '@/components/shared/EmptyComponentTemplate';
 import { ComponentPlayground } from '@/components/shared/ComponentPlayground';
 import { ChevronDownIcon, UserIcon, CogIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
+import { SectionContentWrapper } from '@/components/shared/ComponentDocTemplate';
+import { ComponentDocTemplate } from '@/components/shared/ComponentDocTemplate';
 
 const menuItems = [
   {
@@ -40,28 +42,11 @@ const menuItems = [
 const renderUseCases = () => {
   return (
     <div className="space-y-8">
-      <div>
-        <h3 className="text-lg font-medium mb-4">Basic Menu</h3>
-        <ComponentPreview
-          title="Basic Menu Example"
-          description="A simple menu with basic functionality">
-          <Menu
-            trigger={
-              <button className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                Menu <ChevronDownIcon className="ml-2 h-4 w-4" />
-              </button>
-            }
-            items={menuItems}
-          />
-        </ComponentPreview>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-medium mb-4">Right-Aligned Menu</h3>
-        <ComponentPreview
-          title="Right-Aligned Menu Example"
-          description="A menu aligned to the right side">
-          <div className="text-right">
+      <SectionContentWrapper>
+        <div>
+          <h3 className="text-lg font-medium mb-4">Basic Menu</h3>
+          <div className="space-y-4">
+            <p className="text-sm text-gray-600">A simple menu with basic functionality</p>
             <Menu
               trigger={
                 <button className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
@@ -69,11 +54,30 @@ const renderUseCases = () => {
                 </button>
               }
               items={menuItems}
-              align="right"
             />
           </div>
-        </ComponentPreview>
-      </div>
+        </div>
+      </SectionContentWrapper>
+
+      <SectionContentWrapper>
+        <div>
+          <h3 className="text-lg font-medium mb-4">Right-Aligned Menu</h3>
+          <div className="space-y-4">
+            <p className="text-sm text-gray-600">A menu aligned to the right side</p>
+            <div className="text-right">
+              <Menu
+                trigger={
+                  <button className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Menu <ChevronDownIcon className="ml-2 h-4 w-4" />
+                  </button>
+                }
+                items={menuItems}
+                align="right"
+              />
+            </div>
+          </div>
+        </div>
+      </SectionContentWrapper>
     </div>
   );
 };
@@ -168,7 +172,6 @@ const renderApiReference = () => {
 const renderPlayground = () => {
   return (
     <ComponentPlayground
-      component={Menu}
       defaultProps={{
         trigger: (
           <button className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
@@ -180,31 +183,56 @@ const renderPlayground = () => {
       }}
       controls={[
         {
-          type: 'select',
-          prop: 'align',
-          options: ['left', 'right'],
-          label: 'Alignment'
+          group: 'Layout',
+          items: [
+            {
+              type: 'select',
+              label: 'Alignment',
+              value: 'left',
+              options: [
+                { value: 'left', label: 'Left' },
+                { value: 'right', label: 'Right' }
+              ],
+              onChange: (value) => console.log('Alignment changed:', value)
+            }
+          ]
         }
       ]}
+      preview={
+        <Menu
+          trigger={
+            <button className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+              Menu <ChevronDownIcon className="ml-2 h-4 w-4" />
+            </button>
+          }
+          items={menuItems}
+          align="left"
+        />
+      }
     />
   );
 };
 
 export default function MenuPage() {
   return (
-    <ComponentTemplate
+    <ComponentDocTemplate
       title="Menu"
       description="A dropdown menu component that supports icons, nested submenus, and keyboard navigation."
-      source="https://github.com/yourusername/design-system/blob/main/src/components/ui/Menu.tsx"
-      navigation={[
-        { id: 'usage', label: 'Usage' },
-        { id: 'examples', label: 'Examples' },
-        { id: 'playground', label: 'Playground' },
-        { id: 'api-reference', label: 'API Reference' }
-      ]}
+      status={{ label: 'Stable', color: 'blue' }}
+      importCode="import { Menu } from '@/components/ui/Menu';"
+      rightNavItems={{
+        items: [
+          { id: 'usage', label: 'Usage' },
+          { id: 'examples', label: 'Examples' },
+          { id: 'playground', label: 'Playground' },
+          { id: 'api-reference', label: 'API Reference' }
+        ]
+      }}
       renderUseCases={renderUseCases}
       renderApiReference={renderApiReference}
       renderPlayground={renderPlayground}
+      renderCoreVariants={() => null}
+      renderCompositions={() => null}
     />
   );
 } 
