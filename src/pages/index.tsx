@@ -472,9 +472,9 @@ const HomePage: NextPage = () => {
             >
               <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/bala-snow.jpg"
+                  src="/boopalakannan.jpg"
                   alt="Boopalakannan Kamaraj in the mountains"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-lg">
