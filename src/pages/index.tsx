@@ -443,9 +443,11 @@ const HomePage: NextPage = () => {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-24 px-6 bg-gradient-to-b from-white to-zinc-50">
-        <div className="max-w-4xl mx-auto">
+      {/* Meet the Maker Section */}
+      <section className="relative py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-zinc-50 to-white opacity-90" />
+        
+        <div className="max-w-7xl mx-auto relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -454,65 +456,92 @@ const HomePage: NextPage = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold mb-4">Meet the Maker</h2>
+            <p className="text-xl text-zinc-600 max-w-2xl mx-auto">
+              The story behind Desynd and the passion that drives it forward
+            </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl p-8 md:p-12 shadow-xl border border-zinc-100"
-          >
-            <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
-              <div className="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Image Column */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://media.licdn.com/dms/image/D5603AQGhVzKBzQUL4w/profile-displayphoto-shrink_800_800/0/1677055677398?e=1716422400&v=beta&t=Hs_Oi_7Hs_Oi_7Hs_Oi_7Hs_Oi_7Hs_Oi_7"
-                  alt="Boopalakannan Kamaraj"
+                  src="/bala-snow.jpg"
+                  alt="Boopalakannan Kamaraj in the mountains"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEyOCIgaGVpZ2h0PSIxMjgiIGZpbGw9IiNFMEU3RkYiLz48cGF0aCBkPSJNNjQgNjRDNzQuMjUgNjQgODIuNjY2NyA1NS41ODMzIDgyLjY2NjcgNDUuMzMzM0M4Mi42NjY3IDM1LjA4MzMgNzQuMjUgMjYuNjY2NyA2NCAyNi42NjY3QzUzLjc1IDI2LjY2NjcgNDUuMzMzMyAzNS4wODMzIDQ1LjMzMzMgNDUuMzMzM0M0NS4zMzMzIDU1LjU4MzMgNTMuNzUgNjQgNjQgNjRaTTY0IDczLjMzMzNDNTEuMzMzMyA3My4zMzMzIDI2IDc5LjY2NjcgMjYgOTIuMzMzM1YxMDEuMzMzSDEwMlY5Mi4zMzMzQzEwMiA3OS42NjY3IDc2LjY2NjcgNzMuMzMzMyA2NCA3My4zMzMzWiIgZmlsbD0iIzk0QTNCOCIvPjwvc3ZnPg==';
-                  }}
                 />
               </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold mb-2">Boopalakannan Kamaraj</h3>
-                <p className="text-zinc-600 mb-4">Senior Product Designer | Builder of better handoffs</p>
-                <div className="flex gap-3">
-                  <Link 
-                    href="https://www.linkedin.com/in/boopalakannan" 
-                    target="_blank"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    LinkedIn
-                  </Link>
-                  <Link
-                    href="https://www.balathedesigner.com" 
-                    target="_blank"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-                    Portfolio
-                  </Link>
+              <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-lg">
+                <Link 
+                  href="https://www.linkedin.com/in/boopalakannan-kamaraj-aa3603144/"
+                  target="_blank"
+                  className="flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                  <span className="font-medium">Connect on LinkedIn</span>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Content Column */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <div>
+                <h3 className="text-3xl font-bold mb-2">Boopalakannan Kamaraj</h3>
+                <p className="text-xl text-blue-600 mb-6">Senior Product Designer & Design Systems Architect</p>
+              </div>
+
+              <div className="space-y-4 text-lg text-zinc-600">
+                <p className="leading-relaxed">
+                  Hey there! I'm Bala — a designer who's obsessed with creating systems that bridge the gap between design and development. With experience spanning healthcare, automation, and AI, I've seen firsthand how the right design system can transform team collaboration.
+                </p>
+                <p className="leading-relaxed">
+                  Desynd emerged from countless hours of wrestling with design handoffs, component libraries, and the eternal question: "Why can't this be simpler?" It's my answer to making design systems more human, more practical, and actually enjoyable to use.
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-3 gap-6 pt-6">
+                <div className="bg-white rounded-lg p-4 shadow-sm border border-zinc-100">
+                  <p className="text-3xl font-bold text-blue-600 mb-2">8+</p>
+                  <p className="text-zinc-600">Years of Design Experience</p>
+                </div>
+                <div className="bg-white rounded-lg p-4 shadow-sm border border-zinc-100">
+                  <p className="text-3xl font-bold text-blue-600 mb-2">50+</p>
+                  <p className="text-zinc-600">Projects Delivered</p>
+                </div>
+                <div className="bg-white rounded-lg p-4 shadow-sm border border-zinc-100">
+                  <p className="text-3xl font-bold text-blue-600 mb-2">3</p>
+                  <p className="text-zinc-600">Design Systems Built</p>
                 </div>
               </div>
-            </div>
-            <p className="text-lg text-zinc-600 leading-relaxed mb-6">
-              Hey there! 👋 I'm Bala — a designer who's obsessed with systems that actually work. Over the years, I've worked across healthcare, automation, education, and AI, and one thing was always missing: a design system that spoke both design and dev fluently.
-            </p>
-            <p className="text-lg text-zinc-600 leading-relaxed mb-6">
-              So I built one.
-            </p>
-            <p className="text-lg text-zinc-600 leading-relaxed">
-              Desynd is my love letter to design ops, structured creativity, and the belief that teams shouldn't have to choose between beauty and practicality.
-            </p>
-            <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
-              <p className="text-blue-700 italic">
-                Built with intention. Shaped by real-world challenges. Powered by lots of coffee and curiosity.
-              </p>
-            </div>
-          </motion.div>
+
+              <div className="pt-6">
+                <Link 
+                  href="https://www.balathedesigner.com" 
+                  target="_blank"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                  </svg>
+                  <span className="font-medium">View Portfolio</span>
+                </Link>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
