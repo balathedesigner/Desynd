@@ -5,11 +5,11 @@ import { ArrowRight, Code, Palette, Zap, Layout, Box, Layers, RefreshCcw, Chevro
 import { Button } from '@/components/ui/Button';
 
 // Stagger animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
+  const containerVariants = {
+    hidden: { opacity: 0 },
   show: {
-    opacity: 1,
-    transition: {
+      opacity: 1,
+      transition: {
       staggerChildren: 0.1
     }
   }
@@ -235,63 +235,65 @@ const HomePage: NextPage = () => {
         </div>
       </section>
 
-      {/* Why Desynd Section - Updated */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-4xl font-bold mb-4">Why Desynd?</h2>
-          <p className="text-xl text-zinc-600 max-w-3xl mx-auto leading-relaxed">
-            We built Desynd with real-world teams in mind — the kind juggling Figma files, component libraries, and dev handoffs. Here's why it works:
-          </p>
-        </motion.div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-          <Card 
-            icon={Palette}
-            title="Design & Dev in Sync" 
-            description="Switch modes like a boss — toggle between pixel-perfect design specs and clean developer documentation without ever leaving the system. No more 'Where's the spec?' messages on Slack."
-            delay={0.1}
-          />
-          <Card 
-            icon={Layers}
-            title="Atomic by Nature" 
-            description="Every element, from button to dashboard layout, follows atomic design principles — giving you a predictable, scalable structure from day one. Think Lego blocks, but prettier."
-            delay={0.2}
-          />
-          <Card 
-            icon={Zap}
-            title="Tailwind-First" 
-            description="Built natively with Tailwind — so your designs stay light, your code stays clean, and your developers stay happy. Utility classes you actually want to use. Bye-bye bloat."
-            delay={0.3}
-          />
-          <Card 
-            icon={Layout}
-            title="Live Component Playground" 
-            description="Test and tweak components in real-time. Play with props, see results instantly, and find the perfect fit for your use case. Design, test, repeat — without breaking things."
-            delay={0.4}
-          />
-          <Card 
-            icon={Box}
-            title="Templates That Actually Help" 
-            description="Kickstart your projects with beautifully structured templates. From dashboards to forms, they're ready for real use — not just Dribbble shots. Less wireframing. More launching."
-            delay={0.5}
-          />
-          <Card 
-            icon={RefreshCcw}
-            title="Always Up-to-Date" 
-            description="Components automatically reflect updates from the design system, keeping everyone on the same version of truth. Sync once. Trust always."
-            delay={0.6}
-          />
+      {/* Why Desynd Section */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4">Why Desynd?</h2>
+            <p className="text-xl text-zinc-600 max-w-2xl mx-auto">
+              We built Desynd with real-world teams in mind — the kind juggling Figma files, component libraries, and dev handoffs. Here's why it works:
+            </p>
+          </motion.div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <Card 
+              icon={Palette}
+              title="Design & Dev in Sync" 
+              description="Switch modes like a boss — toggle between pixel-perfect design specs and clean developer documentation without ever leaving the system. No more 'Where's the spec?' messages on Slack."
+              delay={0.1}
+            />
+            <Card 
+              icon={Layers}
+              title="Atomic by Nature" 
+              description="Every element, from button to dashboard layout, follows atomic design principles — giving you a predictable, scalable structure from day one. Think Lego blocks, but prettier."
+              delay={0.2}
+            />
+            <Card 
+              icon={Zap}
+              title="Tailwind-First" 
+              description="Built natively with Tailwind — so your designs stay light, your code stays clean, and your developers stay happy. Utility classes you actually want to use. Bye-bye bloat."
+              delay={0.3}
+            />
+            <Card 
+              icon={Layout}
+              title="Live Component Playground" 
+              description="Test and tweak components in real-time. Play with props, see results instantly, and find the perfect fit for your use case. Design, test, repeat — without breaking things."
+              delay={0.4}
+            />
+            <Card 
+              icon={Box}
+              title="Templates That Actually Help" 
+              description="Kickstart your projects with beautifully structured templates. From dashboards to forms, they're ready for real use — not just Dribbble shots. Less wireframing. More launching."
+              delay={0.5}
+            />
+            <Card 
+              icon={RefreshCcw}
+              title="Always Up-to-Date" 
+              description="Components automatically reflect updates from the design system, keeping everyone on the same version of truth. Sync once. Trust always."
+              delay={0.6}
+            />
+          </div>
         </div>
       </section>
 
       {/* Core Principles Section */}
-      <section className="py-24 px-6 bg-gradient-to-b from-zinc-50 to-white">
+      <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -345,7 +347,7 @@ const HomePage: NextPage = () => {
 
       {/* How It Works Section */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -444,67 +446,209 @@ const HomePage: NextPage = () => {
       </section>
 
       {/* Meet the Maker Section */}
-      <section className="relative py-24 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-zinc-50 to-white opacity-90" />
-        
-        <div className="max-w-7xl mx-auto relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold mb-4">Meet the Maker</h2>
-            <p className="text-xl text-zinc-600 max-w-2xl mx-auto">
-              The story behind Desynd and the passion that drives it forward
-            </p>
-          </motion.div>
+      <section className="relative py-24 overflow-hidden">
+        {/* Cosmic background */}
+        <div className="absolute inset-0 bg-[#050B14]"> {/* Darker background */}
+          {/* Animated gradient background */}
+          <div 
+            className="absolute inset-0 opacity-20"
+            style={{
+              background: 'linear-gradient(to right, #0A1A3F, #0D2B6B, #0A1A3F)',
+              backgroundSize: '200% 100%',
+              animation: 'gradientMove 15s linear infinite',
+            }}
+          />
+          
+          {/* Enhanced particles with more glow */}
+          <div className="absolute inset-0">
+            {/* Small floating particles */}
+            {[...Array(50)].map((_, i) => (
+              <motion.div
+                key={`particle-small-${i}`}
+                className="absolute rounded-full bg-blue-300/50"
+                style={{
+                  width: `${Math.random() * 3 + 2}px`,
+                  height: `${Math.random() * 3 + 2}px`,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  boxShadow: '0 0 8px rgba(147, 197, 253, 0.7), 0 0 12px rgba(59, 130, 246, 0.5)', // Enhanced glow
+                  filter: 'blur(0.5px)',
+                }}
+                animate={{
+                  scale: [0, 1.2, 0],
+                  opacity: [0, 1, 0],
+                  y: [0, -100],
+                }}
+                transition={{
+                  duration: Math.random() * 4 + 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.1,
+                }}
+              />
+            ))}
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Image Column */}
+            {/* Medium floating particles */}
+            {[...Array(30)].map((_, i) => (
+              <motion.div
+                key={`particle-med-${i}`}
+                className="absolute rounded-full bg-blue-200/40"
+                style={{
+                  width: `${Math.random() * 5 + 3}px`,
+                  height: `${Math.random() * 5 + 3}px`,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  boxShadow: '0 0 10px rgba(191, 219, 254, 0.8), 0 0 20px rgba(96, 165, 250, 0.6)', // Enhanced glow
+                  filter: 'blur(0.7px)',
+                }}
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.2, 0.8, 0.2],
+                  x: [0, Math.random() * 100 - 50],
+                  y: [0, Math.random() * 100 - 50],
+                }}
+                transition={{
+                  duration: Math.random() * 7 + 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.2,
+                }}
+              />
+            ))}
+
+            {/* Glowing orbs with enhanced glow */}
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={`orb-${i}`}
+                className="absolute"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+              >
+                <motion.div
+                  className="relative"
+                  animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.3, 0.7, 0.3],
+                    x: [0, Math.random() * 100 - 50],
+                    y: [0, Math.random() * 100 - 50],
+                  }}
+                  transition={{
+                    duration: Math.random() * 8 + 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.3,
+                  }}
+                >
+                  <div className="absolute w-[24px] h-[24px] rounded-full bg-blue-400/30 blur-xl" 
+                       style={{ boxShadow: '0 0 30px rgba(96, 165, 250, 0.4), 0 0 60px rgba(37, 99, 235, 0.3)' }} />
+                  <div className="absolute w-[16px] h-[16px] rounded-full bg-blue-300/40 blur-lg"
+                       style={{ boxShadow: '0 0 20px rgba(147, 197, 253, 0.5)' }} />
+                  <div className="w-[8px] h-[8px] rounded-full bg-blue-200/50 blur-sm"
+                       style={{ boxShadow: '0 0 15px rgba(191, 219, 254, 0.6)' }} />
+                </motion.div>
+              </motion.div>
+            ))}
+
+            {/* Shooting stars with enhanced glow */}
+            {[...Array(8)].map((_, i) => (
+              <motion.div
+                key={`star-${i}`}
+                className="absolute h-[2px]"
+                style={{
+                  width: `${Math.random() * 150 + 100}px`,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  transform: `rotate(${Math.random() * 180}deg)`,
+                  filter: 'blur(0.5px)',
+                }}
+              >
+                <motion.div
+                  className="w-full h-full"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.8), transparent)',
+                    boxShadow: '0 0 20px rgba(96, 165, 250, 0.6), 0 0 40px rgba(37, 99, 235, 0.4)',
+                  }}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    x: ['-200%', '300%'],
+                  }}
+                  transition={{
+                    duration: Math.random() * 2 + 1.5,
+                    repeat: Infinity,
+                    ease: "linear",
+                    delay: i * 4,
+                  }}
+                />
+              </motion.div>
+            ))}
+
+            {/* Pulsing background particles with enhanced glow */}
+            {[...Array(15)].map((_, i) => (
+              <motion.div
+                key={`pulse-${i}`}
+                className="absolute rounded-full bg-blue-400/20 backdrop-blur-xl"
+                style={{
+                  width: `${Math.random() * 60 + 40}px`,
+                  height: `${Math.random() * 60 + 40}px`,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  boxShadow: '0 0 30px rgba(96, 165, 250, 0.4), 0 0 60px rgba(37, 99, 235, 0.3), 0 0 100px rgba(29, 78, 216, 0.2)',
+                }}
+                animate={{
+                  scale: [1, 2, 1],
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{
+                  duration: Math.random() * 10 + 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.5,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Add this style block for the gradient animation */}
+        <style jsx global>{`
+          @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+          }
+        `}</style>
+
+        <div className="max-w-7xl mx-auto px-6 relative">
+          {/* Top Label */}
+          <div className="mb-24 flex items-center justify-center">
+            <div className="inline-flex items-center gap-3 py-1 px-4 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
+              <div className="h-1 w-8 bg-blue-500/40 rounded-full"></div>
+              <h4 className="text-sm font-medium text-blue-400 tracking-wider uppercase">Meet the Maker</h4>
+              <div className="h-1 w-8 bg-blue-500/40 rounded-full"></div>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            {/* Content Column */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="relative"
+              className="space-y-12"
             >
-              <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src="/boopalakannan.jpg"
-                  alt="Boopalakannan Kamaraj in the mountains"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-lg">
-                <Link 
-                  href="https://www.linkedin.com/in/boopalakannan-kamaraj-aa3603144/"
-                  target="_blank"
-                  className="flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                  </svg>
-                  <span className="font-medium">Connect on LinkedIn</span>
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Content Column */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <div>
-                <h3 className="text-3xl font-bold mb-2">Boopalakannan Kamaraj</h3>
-                <p className="text-xl text-blue-600 mb-6">Senior Product Designer & Design Systems Architect</p>
+              {/* Header */}
+              <div className="space-y-4">
+                <h2 className="text-6xl font-bold tracking-tight bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                  Boopalakannan Kamaraj
+                </h2>
+                <p className="text-xl text-blue-400 font-medium">Senior Product Designer & Design Systems Architect</p>
               </div>
 
-              <div className="space-y-4 text-lg text-zinc-600">
+              {/* Bio */}
+              <div className="space-y-6 text-lg text-zinc-300">
                 <p className="leading-relaxed">
                   Hey there! I'm Bala — a designer who's obsessed with creating systems that bridge the gap between design and development. With experience spanning healthcare, automation, and AI, I've seen firsthand how the right design system can transform team collaboration.
                 </p>
@@ -513,39 +657,95 @@ const HomePage: NextPage = () => {
                 </p>
               </div>
 
-              <div className="grid sm:grid-cols-3 gap-6 pt-6">
-                <div className="bg-white rounded-lg p-4 shadow-sm border border-zinc-100">
-                  <p className="text-3xl font-bold text-blue-600 mb-2">8+</p>
-                  <p className="text-zinc-600">Years of Design Experience</p>
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-8">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-white/5 rounded-lg backdrop-blur-sm border border-white/10 -z-10 transform transition-all duration-300 group-hover:scale-105 group-hover:bg-white/10" />
+                  <div className="p-6">
+                    <p className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">8+</p>
+                    <p className="text-sm font-medium text-zinc-400 mt-2">Years of Design Experience</p>
+                  </div>
                 </div>
-                <div className="bg-white rounded-lg p-4 shadow-sm border border-zinc-100">
-                  <p className="text-3xl font-bold text-blue-600 mb-2">50+</p>
-                  <p className="text-zinc-600">Projects Delivered</p>
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-white/5 rounded-lg backdrop-blur-sm border border-white/10 -z-10 transform transition-all duration-300 group-hover:scale-105 group-hover:bg-white/10" />
+                  <div className="p-6">
+                    <p className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">50+</p>
+                    <p className="text-sm font-medium text-zinc-400 mt-2">Projects Delivered</p>
+                  </div>
                 </div>
-                <div className="bg-white rounded-lg p-4 shadow-sm border border-zinc-100">
-                  <p className="text-3xl font-bold text-blue-600 mb-2">3</p>
-                  <p className="text-zinc-600">Design Systems Built</p>
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-white/5 rounded-lg backdrop-blur-sm border border-white/10 -z-10 transform transition-all duration-300 group-hover:scale-105 group-hover:bg-white/10" />
+                  <div className="p-6">
+                    <p className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">3</p>
+                    <p className="text-sm font-medium text-zinc-400 mt-2">Design Systems Built</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-6">
+              {/* Links */}
+              <div className="flex items-center gap-8 pt-4">
                 <Link 
                   href="https://www.balathedesigner.com" 
                   target="_blank"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 transition-colors"
+                  className="inline-flex items-center gap-3 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all transform hover:-translate-y-0.5"
                 >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                  <span className="text-lg font-medium">View Portfolio</span>
+                  <svg 
+                    className="w-5 h-5" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
-                  <span className="font-medium">View Portfolio</span>
                 </Link>
+                <Link 
+                  href="https://www.linkedin.com/in/boopalakannan-kamaraj-aa3603144/"
+                  target="_blank"
+                  className="inline-flex items-center gap-3 text-blue-400 hover:text-blue-300 transition-colors group"
+                >
+                  <span className="text-lg font-medium">Connect on LinkedIn</span>
+                  <svg className="w-5 h-5 transform transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Image Column */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="relative aspect-[4/5]">
+                {/* Radial glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 blur-3xl transform scale-110"></div>
+                
+                {/* Image container */}
+                <div className="relative rounded-lg overflow-hidden">
+                  <img
+                    src="/boopalakannan.jpg"
+                    alt="Boopalakannan Kamaraj in the mountains"
+                    className="w-full h-full object-cover brightness-90 contrast-110 saturate-90"
+                  />
+                  
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-zinc-900/20 to-transparent mix-blend-multiply"></div>
+                </div>
+
+                {/* Decorative elements */}
+                <div className="absolute -bottom-6 -right-6 w-full h-full border border-white/10 rounded-lg -z-10"></div>
+                <div className="absolute -bottom-12 -right-12 w-2/3 h-2/3 border border-white/5 rounded-lg -z-10"></div>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Special Thanks Section */}
+      {/* Special Thanks Section - Updated Cursor logo */}
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -590,12 +790,11 @@ const HomePage: NextPage = () => {
               className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-8 border border-violet-100"
             >
               <div className="w-16 h-16 mb-6">
-                <svg viewBox="0 0 32 32" className="w-full h-full">
-                  <path
-                    fill="#7C3AED"
-                    d="M16 2L3 9v14l13 7 13-7V9L16 2zm0 2.236L27.17 10 16 15.764 4.83 10 16 4.236zM5 11.618l10 5v11.764L5 23.382V11.618zm12 16.764V16.618l10-5v11.764l-10 5z"
-                  />
-                </svg>
+                <img 
+                  src="/logo-dark.avif"
+                  alt="Cursor Logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <h3 className="text-xl font-semibold mb-4">Cursor</h3>
               <p className="text-zinc-600">
@@ -603,18 +802,6 @@ const HomePage: NextPage = () => {
               </p>
             </motion.div>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
-            <p className="text-lg text-zinc-600">
-              To all the tools, late nights, and "a-ha" moments — thank you.
-            </p>
-          </motion.div>
         </div>
       </section>
 
@@ -646,7 +833,7 @@ const HomePage: NextPage = () => {
                 </Button>
               </Link>
             </div>
-          </motion.div>
+        </motion.div>
         </div>
       </section>
     </main>
