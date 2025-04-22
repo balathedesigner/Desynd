@@ -466,7 +466,7 @@ const HomePage: NextPage = () => {
             <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
               <div className="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
                 <img
-                  src="/boopalakannan.jpg"
+                  src="https://media.licdn.com/dms/image/D5603AQGhVzKBzQUL4w/profile-displayphoto-shrink_800_800/0/1677055677398?e=1716422400&v=beta&t=Hs_Oi_7Hs_Oi_7Hs_Oi_7Hs_Oi_7Hs_Oi_7"
                   alt="Boopalakannan Kamaraj"
                   className="w-full h-full object-cover"
                   onError={(e) => {
