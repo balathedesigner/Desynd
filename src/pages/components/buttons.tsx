@@ -275,9 +275,9 @@ export default function Example() {
           <Button variant="default" rightIcon={<ChevronRight className="h-4 w-4" />}>With Right Icon</Button>
         </div>
         <div className="flex flex-wrap gap-4">
-          <Button variant="ghost" size="icon"><Plus className="h-4 w-4" /></Button>
-          <Button variant="outline" size="icon"><Info className="h-4 w-4" /></Button>
-          <Button variant="default" size="icon"><Check className="h-4 w-4" /></Button>
+          <Button variant="ghost"><Plus className="h-4 w-4" /></Button>
+          <Button variant="outline"><Info className="h-4 w-4" /></Button>
+          <Button variant="default"><Check className="h-4 w-4" /></Button>
         </div>
       </div>
     </div>
@@ -567,9 +567,9 @@ export default function Example() {
             <div>
               <h4 className="text-sm font-medium mb-2">Icon Only Buttons</h4>
               <div className="flex flex-wrap gap-4">
-                <Button variant="default" size="icon"><Plus className="h-4 w-4" /></Button>
-                <Button variant="outline" size="icon"><Info className="h-4 w-4" /></Button>
-                <Button variant="ghost" size="icon"><Check className="h-4 w-4" /></Button>
+                <Button variant="default"><Plus className="h-4 w-4" /></Button>
+                <Button variant="outline"><Info className="h-4 w-4" /></Button>
+                <Button variant="ghost"><Check className="h-4 w-4" /></Button>
               </div>
             </div>
           </div>
