@@ -71,9 +71,8 @@ export default function BadgesPage() {
       props.push(`variant="${playgroundProps.variant}"`);
     }
 
-    if (playgroundProps.color !== 'default') {
-      props.push(`color="${playgroundProps.color}"`);
-    }
+    // Always include color since 'default' is not a valid option
+    props.push(`color="${playgroundProps.color}"`);
 
     if (playgroundProps.size !== 'md') {
       props.push(`size="${playgroundProps.size}"`);
