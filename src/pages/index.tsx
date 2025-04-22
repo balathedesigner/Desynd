@@ -38,7 +38,7 @@ function Card({
 const HomePage: NextPage = () => {
   return (
     <main className="text-zinc-800">
-      {/* Hero Section with animated gradient and floating elements */}
+      {/* Hero Section */}
       <section className="relative py-32 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-900" />
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
@@ -49,11 +49,18 @@ const HomePage: NextPage = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
-              Welcome to Desynd
+              💜 Welcome to <span className="text-white">Desynd</span>
             </h1>
-            <p className="text-2xl max-w-3xl mx-auto mb-12 text-blue-100">
-              A modern design system that speaks to both designers and developers — powered by Tailwind CSS, built on atomic principles, and designed for scale.
+            <p className="text-3xl font-bold mb-4 text-blue-100">
+              A lovingly crafted design system for makers who care.
             </p>
+            <p className="text-xl max-w-3xl mx-auto mb-8 text-blue-100">
+              Built with Tailwind CSS, structured on atomic principles, and fine-tuned for scale — Desynd bridges the gap between design and development, so teams can move faster, collaborate better, and build beautiful interfaces without the chaos.
+            </p>
+            <div className="flex flex-col items-center gap-4 mb-12">
+              <p className="text-lg text-blue-200 font-medium">🔙 Simple. Scalable. Seamless.</p>
+              <p className="text-lg text-blue-200">🎯 For designers. For developers. For product teams who just want things to work.</p>
+            </div>
             <div className="flex gap-4 justify-center">
               <Button
                 size="lg"
@@ -61,22 +68,14 @@ const HomePage: NextPage = () => {
                 className="bg-white text-blue-600 hover:bg-blue-50"
                 rightIcon={<ArrowRight className="ml-2" />}
               >
-                Get Started
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10"
-                rightIcon={<Code className="ml-2" />}
-              >
-                View Components
+                Get Started Now
               </Button>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Features Grid */}
+      {/* Why Desynd Section */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -85,53 +84,53 @@ const HomePage: NextPage = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">Why Choose Desynd?</h2>
+          <h2 className="text-4xl font-bold mb-4">✨ Why Desynd?</h2>
           <p className="text-xl text-zinc-600 max-w-2xl mx-auto">
-            Built with modern tools and best practices, Desynd helps teams create consistent and beautiful interfaces faster.
+            We built Desynd with real-world teams in mind — the kind juggling Figma files, component libraries, and dev handoffs. Here's why it works:
           </p>
         </motion.div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Card 
             icon={Palette}
-            title="Design & Dev Modes" 
-            description="Switch between visual design specs and full developer documentation seamlessly — no context switching, just clarity."
+            title="🔁 Design & Dev in Sync" 
+            description="Switch modes like a boss — toggle between pixel-perfect design specs and clean developer documentation without ever leaving the system. No more 'Where's the spec?' messages on Slack."
             delay={0.1}
           />
           <Card 
             icon={Layers}
-            title="Atomic-First Structure" 
-            description="Our components follow atomic design principles: from atoms to organisms. Meaningful hierarchy, built to scale."
+            title="⚛️ Atomic by Nature" 
+            description="Every element, from button to dashboard layout, follows atomic design principles — giving you a predictable, scalable structure from day one. Think Lego blocks, but prettier and less likely to get stepped on."
             delay={0.2}
           />
           <Card 
             icon={Zap}
-            title="Tailwind-Native" 
-            description="No bloated overrides. Clean utility-first styles that map directly from design tokens to code."
+            title="🌈 Tailwind-First" 
+            description="Built natively with Tailwind — so your designs stay light, your code stays clean, and your developers stay happy. Utility classes you actually want to use. Bye-bye bloat."
             delay={0.3}
           />
           <Card 
             icon={Layout}
-            title="Component Playground" 
-            description="Explore, inspect, and interact — every component is live, customizable, and ready to drop in."
+            title="🧪 Live Component Playground" 
+            description="Test and tweak components in real-time. Play with props, see results instantly, and find the perfect fit for your use case. Design, test, repeat — without breaking things."
             delay={0.4}
           />
           <Card 
             icon={Box}
-            title="Ready-Made Templates" 
-            description="Start with pre-built layouts and patterns. Customize and combine them to create your perfect interface."
+            title="🧹 Templates That Actually Help" 
+            description="Kickstart your projects with beautifully structured templates. From dashboards to forms, they're ready for real use — not just Dribbble shots. Less wireframing. More launching."
             delay={0.5}
           />
           <Card 
             icon={RefreshCcw}
-            title="Auto-Updates" 
-            description="Stay in sync with the latest design changes. Automatic updates ensure your components are always current."
+            title="🔄 Always Up-to-Date" 
+            description="Components automatically reflect updates from the design system, keeping everyone on the same version of truth. Sync once. Trust always."
             delay={0.6}
           />
         </div>
       </section>
 
-      {/* Core Principles with Visual Elements */}
+      {/* Core Principles Section */}
       <section className="py-24 px-6 bg-gradient-to-b from-zinc-50 to-white">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -141,27 +140,27 @@ const HomePage: NextPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">Core Principles</h2>
+            <h2 className="text-4xl font-bold mb-4">🧱 The Principles Behind Desynd</h2>
             <p className="text-xl text-zinc-600 max-w-2xl mx-auto">
-              Built on foundations that ensure consistency, efficiency, and scalability.
+              We didn't just build a library — we built a philosophy. Here are the principles that shape every pixel and prop:
             </p>
           </motion.div>
           
           <div className="grid sm:grid-cols-3 gap-12">
             {[
               {
-                title: "Modularity",
-                description: "Everything is reusable. Designed to adapt, extend, and plug into your product flow.",
+                title: "🎯 Clarity",
+                description: "Each component has a purpose. Each style has a reason. Nothing is random, everything's intentional.",
                 color: "from-blue-400 to-blue-600"
               },
               {
-                title: "Clarity",
-                description: "Designs are accessible, purposeful, and aligned with development structure.",
+                title: "🔌 Modularity",
+                description: "Plug in what you need, leave the rest. Reuse components across projects without friction.",
                 color: "from-indigo-400 to-indigo-600"
               },
               {
-                title: "Sync",
-                description: "One source of truth for designers and developers — no duplication, no guesswork.",
+                title: "🤝 Harmony Between Teams",
+                description: "Designers speak in pixels. Developers in code. Desynd speaks both fluently — so everyone stays on the same page.",
                 color: "from-violet-400 to-violet-600"
               }
             ].map((principle, index) => (
@@ -184,7 +183,7 @@ const HomePage: NextPage = () => {
         </div>
       </section>
 
-      {/* Enhanced Usage Section */}
+      {/* How It Works Section */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -193,9 +192,9 @@ const HomePage: NextPage = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">How to Use Desynd</h2>
+          <h2 className="text-4xl font-bold mb-4">🧽 How It Works — For Everyone</h2>
           <p className="text-xl text-zinc-600 max-w-2xl mx-auto">
-            Whether you're a designer or developer, Desynd adapts to your workflow.
+            Whether you're designing in Figma, coding in VSCode, or doing both (you hero), Desynd is here to support your flow.
           </p>
         </motion.div>
 
@@ -211,32 +210,32 @@ const HomePage: NextPage = () => {
               <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
                 <Palette className="w-6 h-6 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-semibold">For Designers</h3>
+              <h3 className="text-2xl font-semibold">🎨 Designers, We Got You</h3>
             </div>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-blue-600 text-sm">1</span>
                 </div>
-                <p>Browse components in Design Mode with visual specs and guidelines</p>
+                <p>Visual component specs with usage guidelines</p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-blue-600 text-sm">2</span>
                 </div>
-                <p>Access comprehensive design tokens and spacing systems</p>
+                <p>Tokens for spacing, color, typography</p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-blue-600 text-sm">3</span>
                 </div>
-                <p>Follow atomic structure for creating consistent new screens</p>
+                <p>Ready-to-use screen templates</p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-blue-600 text-sm">4</span>
                 </div>
-                <p>Sync with Figma components and design files (coming soon)</p>
+                <p>Figma integration coming soon!</p>
               </li>
             </ul>
           </motion.div>
@@ -252,32 +251,32 @@ const HomePage: NextPage = () => {
               <div className="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center">
                 <Code className="w-6 h-6 text-indigo-600" />
               </div>
-              <h3 className="text-2xl font-semibold">For Developers</h3>
+              <h3 className="text-2xl font-semibold">💻 Developers, You're Covered Too</h3>
             </div>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-indigo-600 text-sm">1</span>
                 </div>
-                <p>Access detailed API documentation and implementation guides</p>
+                <p>Tailwind-ready components with code snippets</p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-indigo-600 text-sm">2</span>
                 </div>
-                <p>Copy-paste ready-to-use Tailwind components and patterns</p>
+                <p>Props, states, and real-time previews</p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-indigo-600 text-sm">3</span>
                 </div>
-                <p>Test components in interactive playground environments</p>
+                <p>TypeScript support with proper documentation</p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-indigo-600 text-sm">4</span>
                 </div>
-                <p>Explore TypeScript definitions and prop documentation</p>
+                <p>Dev playground for safe experimentation</p>
               </li>
             </ul>
           </motion.div>
@@ -294,7 +293,7 @@ const HomePage: NextPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">👋 Who's Behind Desynd?</h2>
+            <h2 className="text-4xl font-bold mb-4">👋 Meet the Maker</h2>
           </motion.div>
 
           <motion.div
@@ -318,7 +317,7 @@ const HomePage: NextPage = () => {
               </div>
               <div className="flex-1">
                 <h3 className="text-2xl font-bold mb-2">Boopalakannan Kamaraj</h3>
-                <p className="text-zinc-600 mb-4">Senior Product Designer</p>
+                <p className="text-zinc-600 mb-4">Senior Product Designer | Builder of better handoffs</p>
                 <div className="flex gap-3">
                   <Link 
                     href="https://www.linkedin.com/in/boopalakannan" 
@@ -340,11 +339,19 @@ const HomePage: NextPage = () => {
               </div>
             </div>
             <p className="text-lg text-zinc-600 leading-relaxed mb-6">
-              Hey there, I'm Boopalakannan Kamaraj, a Senior Product Designer with a passion for building design systems that scale and collaborate seamlessly with development teams. Over the years, I've honed my craft in various industries like healthcare, automation, education, and AI. Now, I've created Desynd — a no-nonsense design engine made for both designers and developers.
+              Hey there! 👋 I'm Bala — a designer who's obsessed with systems that actually work. Over the years, I've worked across healthcare, automation, education, and AI, and one thing was always missing: a design system that spoke both design and dev fluently.
+            </p>
+            <p className="text-lg text-zinc-600 leading-relaxed mb-6">
+              So I built one.
             </p>
             <p className="text-lg text-zinc-600 leading-relaxed">
-              This project is the culmination of my experience with design ops, system thinking, and teamwork. Whether you're designing, coding, or both, Desynd is here to bridge the gap and keep things smooth.
+              Desynd is my love letter to design ops, structured creativity, and the belief that teams shouldn't have to choose between beauty and practicality.
             </p>
+            <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
+              <p className="text-blue-700 italic">
+                Built with intention. Shaped by real-world challenges. Powered by lots of coffee and curiosity.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -359,9 +366,9 @@ const HomePage: NextPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">🙏 Special Thanks</h2>
+            <h2 className="text-4xl font-bold mb-4">🙌 Special Thanks</h2>
             <p className="text-xl text-zinc-600">
-              This journey wouldn't have been as smooth without the amazing support of:
+              Desynd was built with some wonderful help behind the scenes:
             </p>
           </motion.div>
 
@@ -378,7 +385,7 @@ const HomePage: NextPage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-4">ChatGPT</h3>
               <p className="text-zinc-600">
-                For the brainstorming sessions, feedback loops, and those late-night design convos that made everything come together.
+                The ultimate brainstorming buddy — helped me refine ideas, improve flow, and sometimes just told me what I already knew. You rock.
               </p>
             </motion.div>
 
@@ -394,7 +401,7 @@ const HomePage: NextPage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-4">Cursor AI</h3>
               <p className="text-zinc-600">
-                My AI-powered coding buddy, helping me build this system faster and with more precision than I could have imagined.
+                My favorite coding sidekick — made writing cleaner and debugging faster. Basically, the teammate who never sleeps.
               </p>
             </motion.div>
           </div>
@@ -407,7 +414,7 @@ const HomePage: NextPage = () => {
             className="text-center mt-12"
           >
             <p className="text-lg text-zinc-600">
-              🚀 Here's to building with the best copilots by my side!
+              💫 To all the tools, late nights, and "a-ha" moments — thank you.
             </p>
           </motion.div>
         </div>
@@ -422,9 +429,12 @@ const HomePage: NextPage = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold mb-6">Ready to Start Building?</h2>
-            <p className="text-xl text-blue-100 mb-8">
-              Explore our component library and start creating beautiful, consistent interfaces today.
+            <h2 className="text-4xl font-bold mb-6">🚀 Ready to Build?</h2>
+            <p className="text-xl text-blue-100 mb-4">
+              Dive into Desynd and start creating UIs that feel good to design, code, and use.
+            </p>
+            <p className="text-lg text-blue-200 mb-8">
+              No bloat. No fluff. Just harmony in motion.
             </p>
             <div className="flex gap-4 justify-center">
               <Link href="/components">
@@ -434,16 +444,7 @@ const HomePage: NextPage = () => {
                   className="bg-white text-blue-600 hover:bg-blue-50"
                   rightIcon={<ArrowRight className="ml-2" />}
                 >
-                  Explore Components
-                </Button>
-              </Link>
-              <Link href="/docs/getting-started">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white/10"
-                >
-                  Read Documentation
+                  Explore the Library
                 </Button>
               </Link>
             </div>
